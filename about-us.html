@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us-WebDevU</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+    <style>
+        /* Global Styles */
+        body, h1, h2, h3, p {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: rgb(4, 39, 62, 1);
+            color: white;
+            overflow-x: hidden;
+        }
+        a {
+            text-decoration: none;
+            color: white;
+        }
+        /* navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px 20px 100px;
+            background-color: rgb(4, 39, 62, 1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+        nav:hover {
+            background-color: rgb(6, 51, 81);
+        }
+        .logo {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            color: #fff;
+            font-size: 1.7rem;
+        }
+        .nav-center {
+            margin-right: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        .home1,.courses1,.about-us1,.contact1
+        {
+            border-bottom: 3.5px solid transparent;
+        }
+        .home1:focus{
+            border-bottom: 3.5px solid rgb(13, 91, 143);
+        }
+        .courses1:focus{
+            border-bottom: 3.5px solid rgb(13, 91, 143);
+        }
+        .about-us1:focus{
+            border-bottom: 3.5px solid rgb(13, 91, 143);
+        }
+        .contact1:focus{
+            border-bottom: 3.5px solid rgb(13, 91, 143);
+        }
+        .nav-center a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+        .nav-center a:hover {
+            color: #64ffda;
+            /* filter: drop-shadow(10px 5px 8px rgb(0, 68, 255)); */
+        }
+        .sign-up {
+            margin-right: 15px;
+            text-align: right;
+        }
+        .sign-up button {
+            padding: 7px 20px;
+            border: 1.5px solid #64ffda;
+            border-radius: 50px;
+            background-color: transparent;
+            color: #bec7c5;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .login button {
+            padding: 7px 25px;
+            border: 1.5px solid #64ffda;
+            border-radius: 50px;
+            background-color: transparent;
+            color: #bec7c5;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .sign-up button a{
+            text-decoration: none;
+            color: white;
+        }
+        .login button a{
+            text-decoration: none;
+            color: white;
+        }
+        .sign-up button:hover {
+            background-color: #0469f7;
+            color: #ffffff;
+            scale: 1.1;
+        }
+        .login button:hover {
+            background-color: #0430f7;
+            color: #ffffff;
+            scale: 1.1;
+        }
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            z-index: 1010;
+        }
+        .menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: #fff;
+            margin: 5px 0;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+        .mobile-menu  {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 60%;
+            background-color: rgba(17, 34, 64, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: -5px 0 10px rgba(0, 0, 0, 0.5);
+            border-left: 1px solid #64ffda;
+            animation: slideIn 0.5s ease;
+            z-index: 1000;
+        }
+        @keyframes slideIn {
+            from {
+            transform: translateX(100%);
+            }
+            to {
+            transform: translateX(0);
+            }
+        }
+        .mobile-menu.show {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .mobile-menu a, .mobile-menu .sign-up button {
+            width: 60%;
+            text-align: center;
+            margin: 10px 0;
+            padding: 10px 20px;
+            color: #fff;
+            text-decoration: none;
+            background-color: transparent;
+            border: 1px solid #64ffda;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        .mobile-menu .button .btn a{
+            text-decoration: none;
+        }
+        .mobile-menu a:hover:hover {
+            background-color: #64ffda;
+            color: #0a192f;
+            filter: drop-shadow(10px 10px 20px rgb(255, 0, 242));
+        }
+        .mobile-menu .buttons {
+            display: flex;
+            gap: 30px;
+            width: auto;
+            border: none;
+        }
+        .mobile-menu .buttons button {
+            padding: 10px 0px;
+            border: 1.5px solid #64ffda;
+            border-radius: 50px;
+            background-color: transparent;
+            color: #bec7c5;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+        .mobile-menu .buttons:hover
+        {
+            color: #0a192f;
+            filter: drop-shadow(10px 10px 20px rgb(255, 0, 242));
+        }
+        @media (max-width: 968px) {
+            .nav-center {
+            display: none;
+            }
+
+            .sign-up {
+            display: none;
+            }
+
+            .login {
+            display: none;
+            }
+
+            .menu-toggle {
+            display: flex;
+            }
+
+            .mobile-menu {
+            display: none;
+            }
+
+            .menu-toggle.active + .mobile-menu {
+            display: flex;
+            }
+        }
+        /* Header Section */
+        header {
+            margin-top: 100px;
+            text-align: center;
+            padding: 50px 20px;
+        }
+        header h1 {
+
+            font-size: 2.5rem;
+            color: #ecf0f1;
+        }
+        header p {
+            font-size: 1.1rem;
+            color: #bdc3c7;
+            margin-top: 10px;
+        }
+
+        /* About Section */
+        .about-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            padding: 50px 20px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .about-section img {
+            max-width: 40%;
+            border-radius: 10px;
+            animation: fadeIn 1.5s ease;
+        }
+        .about-content {
+            max-width: 500px;
+            animation: slideIn 1.5s ease;
+        }
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ecf0f1;
+        }
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #bdc3c7;
+        }
+
+        /* Why Choose Section */
+        .why-choose-section{
+            padding: 50px 20px;
+            text-align: center;
+        }
+        .why-choose-section h2{
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px;
+        }
+        .info-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .info-card {
+            background: rgb(7, 61, 98);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 300px;
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: white;
+        }
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        .info-card p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        .image-container img {
+            width: 300px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        @media (max-width: 768px) {
+        .container {
+            flex-direction: column;
+            align-items: center;
+        }
+        .info-column {
+            align-items: center;
+        }
+        .image-container img {
+            width: 80%;
+        }
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 50px 20px;
+        }
+        .team-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .team-members {
+            margin: 0px 100px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+        .team-member {
+            padding: 20px;
+            background-color: #34495e;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+            animation: fadeIn 1.5s ease;
+        }
+        .team-member img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+        .team-member h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #ecf0f1;
+        }
+        .team-member p {
+            font-size: 1rem;
+            color: #bdc3c7;
+        }
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .about-section img {
+                max-width: 100%;
+            }
+            .about-content {
+                text-align: center;
+            }
+            .why-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        /* footer section */
+        footer {
+            background-color: #002840; /* Dark blue background */
+            color: white;
+            padding: 20px 0;
+            margin-top: 10px;
+        }
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            max-width: 1200px;
+            margin: auto;
+            text-align: left;
+        }
+        .footer-section {
+            flex: 1 1 250px;
+            margin: 10px;
+            margin-left: 40px;
+        }
+        .footer-section h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            text-transform: uppercase;
+        }
+        .footer-section p, 
+        .footer-section a {
+            font-size: 14px;
+            line-height: 1.6;
+            color: white;
+            text-decoration: none;
+        }
+        .footer-section a:hover {
+            text-decoration: underline;
+        }
+        .footer-bottom {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #bbb;
+        }
+        /* Social Media Icons */
+        .social-links a {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 14px;
+            color: white;
+            text-decoration: none;
+        }
+        .social-links i{
+            margin-right: 10px;
+        }
+        .social-links a:hover {
+            text-decoration: underline;
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            footer{
+                margin-top: 0px;
+            }
+            .footer-section {
+            flex: 1 1 100%;
+            margin: 10px 0;
+            }
+
+            .footer-container {
+            text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+          <strong>WebDevU</strong>
+        </div>
+        <div class="nav-center">
+          <a class="home1" href="index.html">Home</a>
+          <a class="courses1" href="courses.html">Courses</a>
+          <a class="about-us1" href="about-us.html">About Us</a>
+          <a class="contact1" href="contact.html">Contact</a>
+        </div>
+        <div class="sign-up">
+          <button><a href="signup.html">Sign-Up</a></button>
+        </div>
+        <div class="login">
+          <button><a href="login.html">Login</a></button>
+        </div>
+        <div class="menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="mobile-menu">
+          <div class="buttons">
+            <button><a href="signup.html">Sign-Up</a></button>
+            <button><a href="login.html">Login</a></button>
+          </div>
+          <a href="index.html">Home</a>
+          <a href="courses.html">Courses</a>
+          <a href="about-us.html">About Us</a>
+          <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header>
+        <h1>Welcome to WebDevU</h1>
+        <p>Your gateway to mastering the latest IT skills and technologies.</p>
+    </header>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <img src="img/abou.png" alt="About WebDevU">
+        <div class="about-content">
+            <h2>Who We Are</h2>
+            <p>
+                At WebDevU, we are passionate about empowering individuals with the skills they need to excel in the IT industry. 
+                Our courses are designed to cater to beginners and advanced learners, with a focus on real-world applications and hands-on learning.
+            </p>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose-section">
+        <h2>Why Students Choose WebDevU Technologies?</h2>
+        <div class="container">
+            <!-- Left Column -->
+            <div class="info-column">
+              <div class="info-card">
+                <p>Real-time industrial training is provided, allowing you to gain practical knowledge. Completing industry training can lead to a promising future.</p>
+              </div>
+              <div class="info-card">
+                <p>The course is suitable for individuals with both engineering and non-engineering backgrounds.</p>
+              </div>
+              <div class="info-card">
+                <p>You can create your own app and participate in innovative technology development, which can enhance your skills and knowledge.</p>
+              </div>
+            </div>
+        
+            <!-- Center Image -->
+            <div class="image-container">
+              <img src="img/Pic1.png" alt="Student">
+            </div>
+        
+            <!-- Right Column -->
+            <div class="info-column">
+              <div class="info-card">
+                <p>Professionals who are actively working in their field will teach you in an easy-to-understand language.</p>
+              </div>
+              <div class="info-card">
+                <p>You will have the opportunity to engage with industry experts, peers, and fellow students who are working with well-known organizations.</p>
+              </div>
+              <div class="info-card">
+                <p>Linkcode has successfully placed hundreds of students in significant corporations across India, which is a testament to its effectiveness.</p>
+              </div>
+            </div>
+          </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <h2>Meet Our Team</h2>
+        <div class="team-members">
+            <div class="team-member">
+                <img src="img/user.jpg" alt="John Doe">
+                <h3>Bhushan Kumbhar</h3>
+                <p>Lead Instructor - Full Stack Development</p>
+            </div>
+            <div class="team-member">
+                <img src="img/lalit.jpg" alt="Jane Smith">
+                <h3>Lalit Kumbhar</h3>
+                <p>UI/UX Designer & Instructor</p>
+            </div>
+            <div class="team-member">
+                <img src="img/rajshree.jpg" alt="Alice Brown">
+                <h3>Rajshree Patil</h3>
+                <p>Software Testing Specialist</p>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-container step-and-card step-and-card1">
+            <!-- About Section -->
+            <div class="footer-section">
+              <h3>About</h3>
+              <p>WebDevU is a Web Design and Web Development Company in India that helps businesses to grow fast by giving them solutions on websites and Digital Marketing.</p>
+            </div>
+            <!-- Contact Section -->
+            <div class="footer-section">
+              <h3>Come Meet Us</h3>
+              <p>Email: info@bizkranti.com</p>
+              <p>Phone: +91 7559355593</p>
+              <p>Address:<br>GAT NO 922/2,<br>SURVEY NO 3780 K VIDYA NAGAR<br>SUTARWADA FAIZPUR YAWAL JALGAON</p>
+            </div>
+            <!-- Client Area Section -->
+            <div class="footer-section">
+              <h3>Client Area</h3>
+              <p><a href="#">Privacy Policy</a></p>
+              <p><a href="#">Terms And Conditions</a></p>
+              <p><a href="#">Refund And Cancellation Policy</a></p>
+              <p><a href="#">Career</a></p>
+            </div>
+            <!-- Social Media Section -->
+            <div class="footer-section">
+              <h3>Follow Us</h3>
+              <div class="social-links">
+                <p><i class="fa-brands fa-facebook"></i><a href="#">Facebook</a></p>
+                <p><i class="fa-brands fa-twitter"></i><a href="#">Twitter</a></p>
+                <p><i class="fa-brands fa-instagram"></i><a href="#">Instagram</a></p>
+                <p><i class="fa-brands fa-linkedin"></i><a href="#">LinkedIn</a></p>
+              </div>
+            </div>
+          </div>
+          <p class="footer-bottom">© 2020-24 Bizkranti. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Scroll animation handler
+        window.addEventListener('scroll', function() {
+            const elements = document.querySelectorAll('.fadeIn, .slideIn');
+            elements.forEach(function(el) {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight) {
+                    el.classList.add('show');
+                }
+            });
+        });
+        const menuToggle = document.querySelector('.menu-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('show');
+        });
+    </script>
+
+</body>
+</html>

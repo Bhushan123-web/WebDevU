@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us-WebDevU</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+  <style>
+    /* Reset and Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: rgb(4, 39, 62);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    /* navbar */
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 50px 20px 100px;
+        background-color: rgb(4, 39, 62, 1);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease;
+    }
+    nav:hover {
+        background-color: rgb(6, 51, 81);
+    }
+    .logo {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+        color: #fff;
+        font-size: 1.7rem;
+    }
+    .nav-center {
+        margin-right: 40px;
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+    }
+    .home1,.courses1,.about-us1,.contact1
+    {
+        border-bottom: 3.5px solid transparent;
+    }
+    .home1:focus{
+        border-bottom: 3.5px solid rgb(13, 91, 143);
+    }
+    .courses1:focus{
+        border-bottom: 3.5px solid rgb(13, 91, 143);
+    }
+    .about-us1:focus{
+        border-bottom: 3.5px solid rgb(13, 91, 143);
+    }
+    .contact1:focus{
+        border-bottom: 3.5px solid rgb(13, 91, 143);
+    }
+    .nav-center a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 1.1rem;
+        transition: color 0.3s ease;
+    }
+    .nav-center a:hover {
+        color: #64ffda;
+        /* filter: drop-shadow(10px 5px 8px rgb(0, 68, 255)); */
+    }
+    .sign-up {
+        margin-right: 15px;
+        text-align: right;
+    }
+    .sign-up button {
+        padding: 7px 20px;
+        border: 1.5px solid #64ffda;
+        border-radius: 50px;
+        background-color: transparent;
+        color: #bec7c5;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+    .login button {
+        padding: 7px 25px;
+        border: 1.5px solid #64ffda;
+        border-radius: 50px;
+        background-color: transparent;
+        color: #bec7c5;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+    .sign-up button a{
+        text-decoration: none;
+        color: white;
+    }
+    .login button a{
+        text-decoration: none;
+        color: white;
+    }
+    .sign-up button:hover {
+        background-color: #0469f7;
+        color: #ffffff;
+        scale: 1.1;
+    }
+    .login button:hover {
+        background-color: #0430f7;
+        color: #ffffff;
+        scale: 1.1;
+    }
+    .menu-toggle {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        position: absolute;
+        right: 20px;
+        z-index: 1010;
+    }
+    .menu-toggle span {
+        width: 30px;
+        height: 3px;
+        background: #fff;
+        margin: 5px 0;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+    }
+    .menu-toggle.active span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-toggle.active span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+    .mobile-menu  {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: 60%;
+        background-color: rgba(17, 34, 64, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: -5px 0 10px rgba(0, 0, 0, 0.5);
+        border-left: 1px solid #64ffda;
+        animation: slideIn 0.5s ease;
+        z-index: 1000;
+    }
+    @keyframes slideIn {
+        from {
+        transform: translateX(100%);
+        }
+        to {
+        transform: translateX(0);
+        }
+    }
+    .mobile-menu.show {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .mobile-menu a, .mobile-menu .sign-up button {
+        width: 60%;
+        text-align: center;
+        margin: 10px 0;
+        padding: 10px 20px;
+        color: #fff;
+        text-decoration: none;
+        background-color: transparent;
+        border: 1px solid #64ffda;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+    }
+    .mobile-menu .button .btn a{
+        text-decoration: none;
+    }
+    .mobile-menu a:hover:hover {
+        background-color: #64ffda;
+        color: #0a192f;
+        filter: drop-shadow(10px 10px 20px rgb(255, 0, 242));
+    }
+    .mobile-menu .buttons {
+        display: flex;
+        gap: 30px;
+        width: auto;
+        border: none;
+    }
+    .mobile-menu .buttons button {
+        padding: 10px 0px;
+        border: 1.5px solid #64ffda;
+        border-radius: 50px;
+        background-color: transparent;
+        color: #bec7c5;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        margin-bottom: 20px;
+    }
+    .mobile-menu .buttons:hover
+    {
+        color: #0a192f;
+        filter: drop-shadow(10px 10px 20px rgb(255, 0, 242));
+    }
+    @media (max-width: 968px) {
+        .nav-center {
+        display: none;
+        }
+
+        .sign-up {
+        display: none;
+        }
+
+        .login {
+        display: none;
+        }
+
+        .menu-toggle {
+        display: flex;
+        }
+
+        .mobile-menu {
+        display: none;
+        }
+
+        .menu-toggle.active + .mobile-menu {
+        display: flex;
+        }
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 3rem;
+      margin: 10px 0;
+      color: #ffcb42;
+      animation: bounce 1.5s infinite;
+      margin-top: 100px;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
+    p.subtitle {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #ccc;
+      margin-bottom: 30px;
+    }
+
+    .contact-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Interactive Contact Details */
+    .contact-card {
+      flex: 1;
+      min-width: 300px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .contact-card i {
+      font-size: 3rem;
+      color: #ffcb42;
+      margin-bottom: 10px;
+    }
+
+    .contact-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: white;
+    }
+
+    .contact-card p {
+      font-size: 1rem;
+      color: #ccc;
+    }
+
+    /* Contact Form */
+    .contact-form {
+      flex: 1 1 100%;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      padding: 20px;
+    }
+
+    .contact-form h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    .contact-form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder {
+      color: #777;
+    }
+    
+    .submitted-message {
+        margin-top: 30px;
+        margin-left: 10px;
+        font-size: 1.2rem;
+        color: #00fb2a;
+        display: none; /* Initially hidden */
+    }
+    .submitted-message i{
+        margin: 0px 5px 0px 5px;
+    }
+    .contact-form button {
+      width: 100%;
+      background-color: #ffcb42;
+      color: #04273e;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .contact-form button:hover {
+      background-color: #ffa502;
+    }
+
+    /* Fullwidth Map Section */
+    .map-container {
+      margin: 20px 0;
+      border-radius: 10px;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .map-container iframe {
+      width: 92%;
+      height: 350px;
+      border: none;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .contact-container {
+        flex-direction: column;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+      }
+    }
+    /* footer section */
+    footer {
+        background-color: #002840; /* Dark blue background */
+        color: white;
+        padding: 20px 0;
+        margin-top: 100px;
+    }
+    .footer-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        max-width: 1200px;
+        margin: auto;
+        text-align: left;
+    }
+    .footer-section {
+        flex: 1 1 250px;
+        margin: 10px;
+        margin-left: 40px;
+    }
+    .footer-section h3 {
+        margin-bottom: 15px;
+        font-size: 18px;
+        text-transform: uppercase;
+    }
+    .footer-section p, 
+    .footer-section a {
+        font-size: 14px;
+        line-height: 1.6;
+        color: white;
+        text-decoration: none;
+    }
+    .footer-section a:hover {
+        text-decoration: underline;
+    }
+    .footer-bottom {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 16px;
+        color: #bbb;
+    }
+    /* Social Media Icons */
+    .social-links a {
+        display: inline-block;
+        margin-right: 10px;
+        font-size: 14px;
+        color: white;
+        text-decoration: none;
+    }
+    .social-links i{
+        margin-right: 10px;
+    }
+    .social-links a:hover {
+        text-decoration: underline;
+    }
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        footer{
+            margin-top: 0px;
+        }
+        .footer-section {
+        flex: 1 1 100%;
+        margin: 10px 0;
+        }
+
+        .footer-container {
+        text-align: center;
+        }
+    }
+  </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+          <strong>WebDevU</strong>
+        </div>
+        <div class="nav-center">
+          <a class="home1" href="index.html">Home</a>
+          <a class="courses1" href="courses.html">Courses</a>
+          <a class="about-us1" href="about-us.html">About Us</a>
+          <a class="contact1" href="contact.html">Contact</a>
+        </div>
+        <div class="sign-up">
+          <button><a href="signup.html">Sign-Up</a></button>
+        </div>
+        <div class="login">
+          <button><a href="login.html">Login</a></button>
+        </div>
+        <div class="menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="mobile-menu">
+          <div class="buttons">
+            <button><a href="signup.html">Sign-Up</a></button>
+            <button><a href="login.html">Login</a></button>
+          </div>
+          <a href="index.html">Home</a>
+          <a href="courses.html">Courses</a>
+          <a href="about-us.html">About Us</a>
+          <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+  <h1>Contact Us</h1>
+  <p class="subtitle">We are here to help. Feel free to reach out to us anytime!</p>
+
+  <div class="contact-container">
+    <!-- Contact Details Section -->
+    <div class="contact-card">
+      <i class="fas fa-map-marker-alt"></i>
+      <h3>Our Address</h3>
+      <p>WebDevU Technologies, 123 Tech Park, Bangalore, India</p>
+    </div>
+    <div class="contact-card">
+      <i class="fas fa-phone"></i>
+      <h3>Call Us</h3>
+      <p>+91 9876543210</p>
+    </div>
+    <div class="contact-card">
+      <i class="fas fa-envelope"></i>
+      <h3>Email Us</h3>
+      <p>support@webdevu.com</p>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="contact-form">
+      <h2>Send Us a Message</h2>
+      <form>
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Enter your name" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email" required>
+
+        <label for="message">Message</label>
+        <textarea id="message" rows="5" placeholder="Enter your message" required></textarea>
+
+        <button id="submitButton" type="submit">Submit</button>
+      </form>
+      <div class="submitted-message" id="submittedMessage">
+        <i class="fa-solid fa-check"></i>
+        Form Submitted! Thank you for Contacting.
+      </div>
+    </div>
+  </div>
+
+  <!-- Map Section -->
+  <div class="map-container">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126916.69839483884!2d77.4910166902847!3d12.971598999999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1670f88d4ed9%3A0x23456b7c0bd16c3b!2sBangalore%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1670587408123!5m2!1sen!2sin"
+      allowfullscreen=""
+      loading="lazy">
+    </iframe>
+  </div>
+  <footer>
+    <div class="footer-container step-and-card step-and-card1">
+        <!-- About Section -->
+        <div class="footer-section">
+          <h3>About</h3>
+          <p>WebDevU is a Web Design and Web Development Company in India that helps businesses to grow fast by giving them solutions on websites and Digital Marketing.</p>
+        </div>
+        <!-- Contact Section -->
+        <div class="footer-section">
+          <h3>Come Meet Us</h3>
+          <p>Email: info@bizkranti.com</p>
+          <p>Phone: +91 7559355593</p>
+          <p>Address:<br>GAT NO 922/2,<br>SURVEY NO 3780 K VIDYA NAGAR<br>SUTARWADA FAIZPUR YAWAL JALGAON</p>
+        </div>
+        <!-- Client Area Section -->
+        <div class="footer-section">
+          <h3>Client Area</h3>
+          <p><a href="#">Privacy Policy</a></p>
+          <p><a href="#">Terms And Conditions</a></p>
+          <p><a href="#">Refund And Cancellation Policy</a></p>
+          <p><a href="#">Career</a></p>
+        </div>
+        <!-- Social Media Section -->
+        <div class="footer-section">
+          <h3>Follow Us</h3>
+          <div class="social-links">
+            <p><i class="fa-brands fa-facebook"></i><a href="#">Facebook</a></p>
+            <p><i class="fa-brands fa-twitter"></i><a href="#">Twitter</a></p>
+            <p><i class="fa-brands fa-instagram"></i><a href="#">Instagram</a></p>
+            <p><i class="fa-brands fa-linkedin"></i><a href="#">LinkedIn</a></p>
+          </div>
+        </div>
+    </div>
+    <p class="footer-bottom">© 2020-24 Bizkranti. All rights reserved.</p>
+  </footer>
+
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script>
+    document.getElementById("feedbackForm").addEventListener("submit", function (e) {
+     e.preventDefault(); // Prevent the default form submission behavior
+
+     const submitButton = document.getElementById("submitButton");
+     const message = document.getElementById("submittedMessage");
+
+     // Add loading class to the submit button
+     submitButton.classList.add("loading");
+     submitButton.disabled = true;
+
+     // Simulate a delay for the form submission (e.g., saving data to a server)
+     setTimeout(() => {
+         // Show the submitted message
+         message.style.display = "block";
+
+         // Clear form fields
+         document.getElementById("name").value = "";
+         document.getElementById("email").value = "";
+         document.querySelector(".message1").value = "";
+
+         // Remove loading class and enable the button
+         submitButton.classList.remove("loading");
+         submitButton.disabled = false;
+     }, 2000); // Simulating a 2-second delay
+    });
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mobileMenu = document.querySelector('.mobile-menu');
+
+    menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        mobileMenu.classList.toggle('show');
+    });
+  </script>
+</body>
+</html>

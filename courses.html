@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses-WebDevU</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+    <style>
+        /* Global Styles */
+        body, h1, h3, p, a { margin: 0; padding: 0; font-family: Arial, sans-serif; }
+        body { background-color: rgb(4, 39, 62, 1); color: white; }
+        header { text-align: center; padding: 20px 20px 0px 20px; margin-top: 80px;}
+        header h1 { font-size: 2.5rem; color: #ecf0f1; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
+        header p { font-size: 1.2rem; color: #bdc3c7; }
+        /* Header */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px 20px 100px;
+            background-color: rgb(4, 39, 62, 1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+        nav:hover {
+            background-color: rgb(6, 51, 81);
+        }
+        .logo {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            color: #fff;
+            font-size: 1.7rem;
+        }
+        .nav-center {
+            margin-right: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        .home1,.courses1,.about-us1,.contact1
+        {
+            border-bottom: 3.5px solid transparent;
+        }
+        .home1:focus{
+            border-bottom: 3.5px solid rgb(13, 91, 143);
+        }
+        .courses1:focus{
+            border-bottom: 3.5px solid rgb(13, 91, 143);
+        }
+        .about-us1:focus{
+            border-bottom: 3.5px solid rgb(13, 91, 143);
+        }
+        .contact1:focus{
+            border-bottom: 3.5px solid rgb(13, 91, 143);
+        }
+        .nav-center a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+        .nav-center a:hover {
+            color: #64ffda;
+            /* filter: drop-shadow(10px 5px 8px rgb(0, 68, 255)); */
+        }
+        .sign-up {
+            margin-right: 15px;
+            text-align: right;
+        }
+        .sign-up button {
+            padding: 7px 20px;
+            border: 1.5px solid #64ffda;
+            border-radius: 50px;
+            background-color: transparent;
+            color: #bec7c5;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .login button {
+            padding: 7px 25px;
+            border: 1.5px solid #64ffda;
+            border-radius: 50px;
+            background-color: transparent;
+            color: #bec7c5;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .sign-up button a{
+            text-decoration: none;
+            color: white;
+        }
+        .login button a{
+            text-decoration: none;
+            color: white;
+        }
+        .sign-up button:hover {
+            background-color: #0469f7;
+            color: #ffffff;
+            scale: 1.1;
+        }
+        .login button:hover {
+            background-color: #0430f7;
+            color: #ffffff;
+            scale: 1.1;
+        }
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            z-index: 1010;
+        }
+        .menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: #fff;
+            margin: 5px 0;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+        .mobile-menu  {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 60%;
+            background-color: rgba(17, 34, 64, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: -5px 0 10px rgba(0, 0, 0, 0.5);
+            border-left: 1px solid #64ffda;
+            animation: slideIn 0.5s ease;
+            z-index: 1000;
+        }
+        @keyframes slideIn {
+            from {
+            transform: translateX(100%);
+            }
+            to {
+            transform: translateX(0);
+            }
+        }
+        .mobile-menu.show {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .mobile-menu a, .mobile-menu .sign-up button {
+            width: 60%;
+            text-align: center;
+            margin: 10px 0;
+            padding: 10px 20px;
+            color: #fff;
+            text-decoration: none;
+            background-color: transparent;
+            border: 1px solid #64ffda;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        .mobile-menu .button .btn a{
+            text-decoration: none;
+        }
+        .mobile-menu a:hover:hover {
+            background-color: #64ffda;
+            color: #0a192f;
+            filter: drop-shadow(10px 10px 20px rgb(255, 0, 242));
+        }
+        .mobile-menu .buttons {
+            display: flex;
+            gap: 30px;
+            width: auto;
+            border: none;
+        }
+        .mobile-menu .buttons button {
+            padding: 10px 0px;
+            border: 1.5px solid #64ffda;
+            border-radius: 50px;
+            background-color: transparent;
+            color: #bec7c5;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+        .mobile-menu .buttons:hover
+        {
+            color: #0a192f;
+            filter: drop-shadow(10px 10px 20px rgb(255, 0, 242));
+        }
+        @media (max-width: 968px) {
+            .nav-center {
+            display: none;
+            }
+
+            .sign-up {
+            display: none;
+            }
+
+            .login {
+            display: none;
+            }
+
+            .menu-toggle {
+            display: flex;
+            }
+
+            .mobile-menu {
+            display: none;
+            }
+
+            .menu-toggle.active + .mobile-menu {
+            display: flex;
+            }
+        }
+        /* Course Container */
+        .course-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            padding: 40px;
+            transition: all 0.3s ease;
+        }
+
+        /* Course Cards */
+        .course-card {
+            display: flex;
+            flex-direction: row;
+            background-color: #34495e;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: left;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            justify-content: space-between;
+            position: relative;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        /* Course Image */
+        .course-card img {
+            width: 40%;
+            height: auto;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        /* Course Text Section */
+        .course-card .course-details {
+            width: 55%;
+        }
+
+        .course-card h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #ecf0f1;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .course-card .price {
+            font-size: 1.3rem;
+            color: #62f486;
+            margin-top: 5px;
+            margin-bottom: 20px;
+        }
+
+        .course-card .description {
+            font-size: 1rem;
+            color: #bdc3c7;
+            margin-bottom: 40px;
+        }
+
+        /* Button */
+        .course-card a {
+            text-decoration: none;
+            padding: 12px 20px;
+            background-color: #309cee;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            margin-top: 15px;
+            align-self: flex-start;
+        }
+
+        .course-card a:hover {
+            background-color: #0287ec;
+        }
+        .course-card a:active {
+            scale: 1.2;
+        }
+
+        /* Hover Effect */
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .course-card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Modal for Learn More */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #34495e;
+            color: white;
+            padding: 30px 100px;
+            border-radius: 10px;
+            width: 60%;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .modal-content h3 { margin-bottom: 20px; font-size: 1.6rem; }
+        .modal-content p { font-size: 1rem; color: #ecf0f1; margin-bottom: 10px; }
+
+        .modal-content button {
+            padding: 12px 20px;
+            background-color: #309cee;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 150px;
+            right: 170px;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Scroll Animations */
+        .scroll-animation {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.5s ease-in-out;
+        }
+
+        .scroll-animation.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Feedback Section */
+        .feedback-section {
+            background-color: #2c3e50;
+            padding: 40px 40px;
+            margin-top: 40px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .feedback-section h4 {
+            font-size: 2rem;
+            color: #ecf0f1;
+            margin-bottom: 30px;
+            margin-top: 20px;
+            text-transform: uppercase;
+        }
+
+        .feedback-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feedback-item {
+            background-color: #34495e;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .feedback-item .avatar {
+            margin-bottom: 15px;
+            height: 70px;
+            width: 70px;
+        }
+
+        .feedback-item .avatar img {
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            overflow: hidden;
+        }
+
+        .feedback-item .feedback-text {
+            font-size: 1.1rem;
+            color: #ecf0f1;
+            margin-bottom: 10px;
+        }
+
+        .feedback-item .student-name {
+            font-size: 1.1rem;
+            color: #bdc3c7;
+            font-style: italic;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .course-container {
+                flex-direction: column;
+            }
+
+            .course-card {
+                flex-direction: column;
+                text-align: left;
+            }
+
+            .course-card img {
+                width: 100%;
+                margin-right: 0;
+                display: block;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .course-card img {
+                display: none; /* Hide image on very small screens */
+            }
+            .close-btn {
+                position: absolute;
+                top: 100px;
+                right: 50px;
+            }
+        }
+        /* footer section */
+        footer {
+            background-color: #002840; /* Dark blue background */
+            color: white;
+            padding: 20px 0;
+            margin-top: 100px;
+        }
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            max-width: 1200px;
+            margin: auto;
+            text-align: left;
+        }
+        .footer-section {
+            flex: 1 1 250px;
+            margin: 10px;
+            margin-left: 40px;
+        }
+        .footer-section h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            text-transform: uppercase;
+        }
+        .footer-section p, 
+        .footer-section a {
+            font-size: 14px;
+            line-height: 1.6;
+            color: white;
+            text-decoration: none;
+        }
+        .footer-section a:hover {
+            text-decoration: underline;
+        }
+        .footer-bottom {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #bbb;
+        }
+        /* Social Media Icons */
+        .social-links a {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 14px;
+            color: white;
+            text-decoration: none;
+        }
+        .social-links i{
+            margin-right: 10px;
+        }
+        .social-links a:hover {
+            text-decoration: underline;
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            footer{
+                margin-top: 0px;
+            }
+            .footer-section {
+            flex: 1 1 100%;
+            margin: 10px 0;
+            }
+
+            .footer-container {
+            text-align: center;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+          <strong>WebDevU</strong>
+        </div>
+        <div class="nav-center">
+          <a class="home1" href="index.html">Home</a>
+          <a class="courses1" href="courses.html">Courses</a>
+          <a class="about-us1" href="about-us.html">About Us</a>
+          <a class="contact1" href="contact.html">Contact</a>
+        </div>
+        <div class="sign-up">
+          <button><a href="signup.html">Sign-Up</a></button>
+        </div>
+        <div class="login">
+          <button><a href="login.html">Login</a></button>
+        </div>
+        <div class="menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="mobile-menu">
+          <div class="buttons">
+            <button><a href="signup.html">Sign-Up</a></button>
+            <button><a href="login.html">Login</a></button>
+          </div>
+          <a href="index.html">Home</a>
+          <a href="courses.html">Courses</a>
+          <a href="about-us.html">About Us</a>
+          <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+    <!-- Header Section -->
+    <header>
+        <h1>Our Courses</h1>
+        <p>Learn the latest technologies with expert instructors</p>
+    </header>
+
+    <!-- Courses Section -->
+    <div class="course-container">
+        <!-- Full Stack Java -->
+        <div class="course-card scroll-animation">
+            <img src="img/Full-Stack-Java.webp" alt="Full Stack Java" loading="lazy">
+            <div class="course-details">
+                <h3>Full Stack Java</h3>
+                <p class="price">₹39,999</p>
+                <p class="description">Learn to build full-stack applications using Java. Covers both frontend and backend development.</p>
+                <a href="javascript:void(0);" onclick="openModal('full-stack-java')">Learn More</a>
+            </div>
+        </div>
+
+        <!-- MERN Stack -->
+        <div class="course-card scroll-animation">
+            <img src="img/mern.png" alt="MERN Stack" loading="lazy">
+            <div class="course-details">
+                <h3>MERN Stack</h3>
+                <p class="price">₹29,999</p>
+                <p class="description">Master the MERN stack (MongoDB, Express, React, Node.js) to build scalable web applications.</p>
+                <a href="javascript:void(0);" onclick="openModal('mern-stack')">Learn More</a>
+            </div>
+        </div>
+
+        <!-- Full Stack Python -->
+        <div class="course-card scroll-animation">
+            <img src="img/python.webp" alt="Full Stack python" loading="lazy">
+            <div class="course-details">
+                <h3>Full Stack Python</h3>
+                <p class="price">₹44,999</p>
+                <p class="description">Learn to build full-stack applications using Java. Covers both frontend and backend development.</p>
+                <a href="javascript:void(0);" onclick="openModal('full-stack-java')">Learn More</a>
+            </div>
+        </div>
+
+        <!-- MERN Stack -->
+        <div class="course-card scroll-animation">
+            <img src="img/mern.png" alt="MERN Stack" loading="lazy">
+            <div class="course-details">
+                <h3>MERN Stack</h3>
+                <p class="price">₹29,999</p>
+                <p class="description">Master the MERN stack (MongoDB, Express, React, Node.js) to build scalable web applications.</p>
+                <a href="javascript:void(0);" onclick="openModal('mern-stack')">Learn More</a>
+            </div>
+        </div>
+        <!-- Full Stack Java -->
+        <div class="course-card scroll-animation">
+            <img src="img/Full-Stack-Java.webp" alt="Full Stack Java" loading="lazy">
+            <div class="course-details">
+                <h3>Full Stack Java</h3>
+                <p class="price">₹39,999</p>
+                <p class="description">Learn to build full-stack applications using Java. Covers both frontend and backend development.</p>
+                <a href="javascript:void(0);" onclick="openModal('full-stack-java')">Learn More</a>
+            </div>
+        </div>
+
+        <!-- Modal for Full Stack Java -->
+        <div id="full-stack-java" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal('full-stack-java')">&times;</span>
+                <h3>Full Stack Java - More Details</h3>
+                <p><strong>Infromation :</strong> comprehensive course teaches you to build full-stack applications using Java, covering both backend and frontend development.</p>
+                <p><strong>Instructor :</strong> John Doe</p>
+                <p><strong>Duration :</strong> 6 Months</p>
+                <p><strong>Language :</strong> English</p>
+                <p><strong>Level :</strong> Beginner</p>
+                <p><strong>Price :</strong> ₹39,999</p>
+                <button class="enroll-now">Enroll-Now</button>
+            </div>
+        </div>
+
+        <!-- Modal for MERN Stack -->
+        <div id="mern-stack" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal('mern-stack')">&times;</span>
+                <h3>MERN Stack - More Details</h3>
+                <p><strong>Infromation :</strong> Learn how to use MongoDB, Express, React, and Node.js to build full-stack web applications.</p>
+                <p><strong>Instructor:</strong> Jane Doe</p>
+                <p><strong>Duration:</strong> 6 Months</p>
+                <p><strong>Language:</strong> English</p>
+                <p><strong>Level:</strong> Intermediate</p>
+                <p><strong>Price:</strong> ₹29,999</p>
+                <button class="enroll-now">Enroll-Now</button>
+            </div>
+        </div>
+
+        <!-- Modal for Full Stack Java -->
+        <div id="full-stack-java" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal('full-stack-java')">&times;</span>
+                <h3><strong>Infromation :</strong> Full Stack Java - More Details</h3>
+                <p>This comprehensive course teaches you to build full-stack applications using Java, covering both backend and frontend development.</p>
+                <p><strong>Instructor:</strong> John Doe</p>
+                <p><strong>Duration:</strong> 6 Months</p>
+                <p><strong>Language:</strong> English</p>
+                <p><strong>Level:</strong> Beginner</p>
+                <p><strong>Price:</strong> ₹39,999</p>
+                <button class="enroll-now">Enroll-Now</button>
+            </div>
+        </div>
+
+        <!-- Modal for Full Stack Java -->
+        <div id="full-stack-java" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal('full-stack-java')">&times;</span>
+                <h3>Full Stack Java - More Details</h3>
+                <p><strong>Infromation :</strong> This comprehensive course teaches you to build full-stack applications using Java, covering both backend and frontend development.</p>
+                <p><strong>Instructor:</strong> John Doe</p>
+                <p><strong>Duration:</strong> 6 Months</p>
+                <p><strong>Language:</strong> English</p>
+                <p><strong>Level:</strong> Beginner</p>
+                <p><strong>Price:</strong> ₹39,999</p>
+                <button class="enroll-now">Enroll-Now</button>
+            </div>
+        </div>
+
+        <!-- Modal for Full Stack Java -->
+        <div id="full-stack-java" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal('full-stack-java')">&times;</span>
+                <h3><strong>Infromation :</strong> Full Stack Java - More Details</h3>
+                <p>This comprehensive course teaches you to build full-stack applications using Java, covering both backend and frontend development.</p>
+                <p><strong>Instructor:</strong> John Doe</p>
+                <p><strong>Duration:</strong> 6 Months</p>
+                <p><strong>Language:</strong> English</p>
+                <p><strong>Level:</strong> Beginner</p>
+                <p><strong>Price:</strong> ₹39,999</p>
+                <button class="enroll-now">Enroll-Now</button>
+            </div>
+        </div>
+
+
+        <!-- Feedback Section -->
+        <div class="feedback-section">
+            <h4>Student Feedback</h4>
+            <div class="feedback-items">
+                <!-- Feedback Item 1 -->
+                <div class="feedback-item scroll-animation">
+                    <div class="feedback-avatar">
+                        <img src="img/user.jpg" alt="Student A" class="avatar">
+                    </div>
+                    <p class="feedback-text">"This is the best learning experience I've had. The course content is rich, and the instructors are fantastic!"</p>
+                    <p class="student-name">Bhushan</p>
+                </div>
+
+                <!-- Feedback Item 2 -->
+                <div class="feedback-item scroll-animation">
+                    <div class="feedback-avatar">
+                        <img src="img/lalit.jpg" alt="Student B" class="avatar">
+                    </div>
+                    <p class="feedback-text">"I loved the hands-on projects and real-world examples provided throughout the course."</p>
+                    <p class="student-name">Lalit</p>
+                </div>
+
+                <!-- Feedback Item 3 -->
+                <div class="feedback-item scroll-animation">
+                    <div class="feedback-avatar">
+                        <img src="img/rajshree.jpg" alt="Student C" class="avatar">
+                    </div>
+                    <p class="feedback-text">"A life-changing course that has boosted my career in web development!"</p>
+                    <p class="student-name">Rajshree</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container step-and-card step-and-card1">
+            <!-- About Section -->
+            <div class="footer-section">
+              <h3>About</h3>
+              <p>WebDevU is a Web Design and Web Development Company in India that helps businesses to grow fast by giving them solutions on websites and Digital Marketing.</p>
+            </div>
+            <!-- Contact Section -->
+            <div class="footer-section">
+              <h3>Come Meet Us</h3>
+              <p>Email: info@bizkranti.com</p>
+              <p>Phone: +91 7559355593</p>
+              <p>Address:<br>GAT NO 922/2,<br>SURVEY NO 3780 K VIDYA NAGAR<br>SUTARWADA FAIZPUR YAWAL JALGAON</p>
+            </div>
+            <!-- Client Area Section -->
+            <div class="footer-section">
+              <h3>Client Area</h3>
+              <p><a href="#">Privacy Policy</a></p>
+              <p><a href="#">Terms And Conditions</a></p>
+              <p><a href="#">Refund And Cancellation Policy</a></p>
+              <p><a href="#">Career</a></p>
+            </div>
+            <!-- Social Media Section -->
+            <div class="footer-section">
+              <h3>Follow Us</h3>
+              <div class="social-links">
+                <p><i class="fa-brands fa-facebook"></i><a href="#">Facebook</a></p>
+                <p><i class="fa-brands fa-twitter"></i><a href="#">Twitter</a></p>
+                <p><i class="fa-brands fa-instagram"></i><a href="#">Instagram</a></p>
+                <p><i class="fa-brands fa-linkedin"></i><a href="#">LinkedIn</a></p>
+              </div>
+            </div>
+          </div>
+          <p class="footer-bottom">© 2020-24 Bizkranti. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Scroll Animation Handler
+        window.addEventListener('scroll', function() {
+            const elements = document.querySelectorAll('.scroll-animation');
+            elements.forEach(function(element) {
+                const rect = element.getBoundingClientRect();
+                if (rect.top < window.innerHeight) {
+                    element.classList.add('show');
+                }
+            });
+        });
+
+        // Modal Open & Close Functions
+        function openModal(courseId) {
+            document.getElementById(courseId).style.display = 'flex';
+        }
+
+        function closeModal(courseId) {
+            document.getElementById(courseId).style.display = 'none';
+        }
+
+        const menuToggle = document.querySelector('.menu-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('show');
+        });
+
+    </script>
+
+</body>
+</html>
