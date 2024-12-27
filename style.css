@@ -391,12 +391,13 @@ nav:hover {
 .home-content h1 {
     font-size: 3.5rem;
     margin-bottom: 20px;
-    /* backdrop-filter: blur(10px); */
+    backdrop-filter: blur(10px);
     animation: slideIn 1.5s ease-out;
 }
 .home-content p {
     font-size: 1.2rem;
     margin-bottom: 30px;
+    backdrop-filter: blur(10px);
 }
 .cta-buttons {
     display: flex;
